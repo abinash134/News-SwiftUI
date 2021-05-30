@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var networkmaneger = NetworkManeger()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List(networkmaneger.posts){post in
+                Text(post.title)
+            }
+            .navigationTitle("News")
+        }
+        
+        .onAppear{
+             self.networkmaneger.fetchdata()
+        }
     }
 }
 
@@ -19,3 +29,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
